@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LUMIÈRE — Women's Fashion</title>
+  <link rel="stylesheet" href="shared.css"/>
+  <style>
+    /* ─── HERO ─── */
+    .hero {
+      min-height: calc(100vh - 64px);
+      display: grid; grid-template-columns: 1fr 1fr;
+      position: relative; overflow: hidden;
+    }
+    .hero-left {
+      background: linear-gradient(135deg, #f0e8de 0%, #e4d5c5 100%);
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 6rem 5% 6rem 6%;
+      position: relative;
+    }
+    .hero-left::after {
+      content: ''; position: absolute; right: -60px; top: 0; bottom: 0; width: 120px;
+      background: inherit; clip-path: polygon(0 0, 0 100%, 100% 100%);
+      z-index: 2;
+    }
+    .hero-eyebrow { font-size: .7rem; letter-spacing: .32em; text-transform: uppercase; color: var(--rose); margin-bottom: 1.5rem; }
+    .hero-title {
+      font-family: var(--font-serif); font-size: clamp(3.2rem, 5.5vw, 6rem);
+      font-weight: 300; line-height: 1.08; margin-bottom: 2rem; color: var(--dark);
+    }
+    .hero-title em { font-style: italic; color: var(--accent); display: block; }
+    .hero-subtitle { color: var(--mid); font-size: .95rem; line-height: 1.9; max-width: 380px; margin-bottom: 3rem; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero-right {
+      background: linear-gradient(160deg, #c9b8a8 0%, #a8917e 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14rem; position: relative; overflow: hidden;
+    }
+    .hero-right::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(201,125,96,.25), transparent 60%);
+    }
+    .hero-emoji { position: relative; z-index: 2; animation: float 6s ease-in-out infinite; }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
+    .hero-badge {
+      position: absolute; bottom: 2.5rem; right: 2.5rem; z-index: 3;
+      background: #fff; border-radius: 50%; width: 100px; height: 100px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font-size: .65rem; letter-spacing: .1em; text-transform: uppercase;
+      box-shadow: 0 8px 30px rgba(0,0,0,.12); text-align: center;
+    }
+    .hero-badge strong { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 400; display: block; }
+
+    /* ─── MARQUEE ─── */
+
+    /* ─── FEATURED CATS ─── */
+    .cats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5px;
+      margin: 0;
+    }
+    .cat-tile {
+      aspect-ratio: 2/3; overflow: hidden; cursor: pointer;
+      display: flex; align-items: flex-end;
+      position: relative;
+    }
+    .cat-tile-bg {
+      position: absolute; inset: 0;
+      transition: transform .5s var(--ease);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 7rem;
+    }
+    .cat-tile:hover .cat-tile-bg { transform: scale(1.06); }
+    .cat-tile::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(20,15,10,.72) 0%, rgba(20,15,10,.1) 45%, transparent 70%);
+    }
+    .cat-tile-info { position: relative; z-index: 2; padding: 1.8rem 1.5rem; }
+    .cat-tile-info h3 { font-family: var(--font-serif); color: #fff; font-size: 1.4rem; font-weight: 300; }
+    .cat-tile-info span { color: rgba(255,255,255,.7); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; }
+    .cat-tile-info a { display: inline-block; margin-top: .5rem; color: rgba(255,255,255,.8); font-size: .7rem; letter-spacing: .15em; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,.4); padding-bottom: 1px; transition: color .2s; }
+    .cat-tile-info a:hover { color: #fff; }
+
+    /* ─── NEW ARRIVALS ─── */
+    .products-row {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem; padding: 0 4% 5rem;
+    }
+
+    /* ─── SPLIT BANNER ─── */
+    .split-banner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 460px; overflow: hidden;
+    }
+    .split-side {
+      padding: 5rem 6%; display: flex; flex-direction: column; justify-content: center;
+    }
+    .split-dark { background: var(--dark); }
+    .split-dark h2 { font-family: var(--font-serif); color: #fff; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 300; line-height: 1.2; margin-bottom: 1.2rem; }
+    .split-dark p { color: rgba(255,255,255,.65); font-size: .92rem; line-height: 1.9; margin-bottom: 2rem; }
+    .split-rose { background: linear-gradient(135deg, #c97d60, #8b5e52); display: flex; align-items: center; justify-content: center; font-size: 12rem; }
+
+    /* ─── TRENDING ─── */
+    .trending-grid {
+      display: grid; grid-template-columns: 1fr 2fr; gap: 1.5px; min-height: 500px;
+    }
+    .trend-big { grid-row: 1 / 3; }
+    .trend-tile {
+      overflow: hidden; cursor: pointer; position: relative;
+      display: flex; align-items: flex-end;
+      background: var(--cream2);
+    }
+    .trend-tile-bg {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      font-size: 9rem; transition: transform .5s var(--ease);
+    }
+    .trend-tile:hover .trend-tile-bg { transform: scale(1.07); }
+    .trend-tile::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(20,15,10,.65) 0%, transparent 55%);
+    }
+    .trend-tile-label { position: relative; z-index: 2; padding: 1.5rem; }
+    .trend-tile-label h4 { font-family: var(--font-serif); color: #fff; font-size: 1.3rem; font-weight: 300; }
+    .trend-tile-label span { font-size: .7rem; color: rgba(255,255,255,.7); letter-spacing: .1em; text-transform: uppercase; }
+    .trend-right { display: grid; grid-template-columns: 1fr 1fr; }
+
+    /* ─── TESTIMONIALS ─── */
+    .testimonials { background: var(--cream2); padding: 5rem 4%; }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 2rem; }
+    .testimonial-card { background: #fff; padding: 2rem; border-left: 3px solid var(--blush); }
+    .testimonial-text { font-family: var(--font-serif); font-size: 1.05rem; font-style: italic; line-height: 1.7; color: var(--mid); margin-bottom: 1.2rem; }
+    .testimonial-author { display: flex; align-items: center; gap: .8rem; }
+    .author-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--blush); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+    .author-name { font-size: .8rem; font-weight: 400; letter-spacing: .05em; }
+    .author-loc { font-size: .72rem; color: var(--light); }
+
+    /* ─── NEWSLETTER ─── */
+    .newsletter-sec {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2a2018 100%);
+      padding: 5rem 4%; text-align: center;
+    }
+    .newsletter-sec h2 { font-family: var(--font-serif); color: #fff; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 300; margin-bottom: .8rem; }
+    .newsletter-sec p { color: rgba(255,255,255,.6); margin-bottom: 2.5rem; }
+    .newsletter-form { display: flex; max-width: 460px; margin: 0 auto; }
+    .newsletter-input {
+      flex: 1; border: none; border-bottom: 1px solid rgba(255,255,255,.3);
+      background: transparent; padding: .8rem .5rem;
+      color: #fff; font-family: var(--font-sans); font-size: .9rem; outline: none;
+    }
+    .newsletter-input::placeholder { color: rgba(255,255,255,.35); }
+    .newsletter-input:focus { border-bottom-color: var(--rose); }
+    .newsletter-btn {
+      background: var(--rose); color: #fff; border: none;
+      padding: .8rem 1.6rem; cursor: pointer;
+      font-family: var(--font-sans); font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; transition: background .2s;
+    }
+    .newsletter-btn:hover { background: var(--rose2); }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-right { min-height: 300px; font-size: 9rem; }
+      .hero-left::after { display: none; }
+      .cats-grid { grid-template-columns: 1fr 1fr; }
+      .split-banner { grid-template-columns: 1fr; }
+      .split-rose { min-height: 200px; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .trending-grid { grid-template-columns: 1fr; }
+      .trend-big { grid-row: auto; }
+      .trend-right { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 580px) {
+      .cats-grid { grid-template-columns: 1fr 1fr; gap: 1px; }
+      .trend-right { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar" id="navbar">
+  <div class="nav-left">
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="shop.html" class="nav-link">Shop</a>
+    <a href="shop.html?cat=Dresses" class="nav-link">Dresses</a>
+    <a href="shop.html?cat=Tops" class="nav-link">Tops</a>
+    <a href="shop.html?cat=Outerwear" class="nav-link">Outerwear</a>
+    <a href="shop.html?sale=1" class="nav-link" style="color:var(--rose)">Sale</a>
+  </div>
+  <a href="index.html" class="nav-logo">LUMIÈRE</a>
+  <div class="nav-right">
+    <button class="nav-icon" id="searchToggle" title="Search">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+    <a href="wishlist.html" class="nav-icon" title="Wishlist">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </a>
+    <a href="account.html" class="nav-icon" title="Account">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </a>
+    <button class="nav-icon" id="cartToggle" title="Cart">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="cart-badge">0</span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="index.html">Home</a>
+  <a href="shop.html">Shop All</a>
+  <a href="shop.html?cat=Dresses">Dresses</a>
+  <a href="shop.html?cat=Tops">Tops</a>
+  <a href="shop.html?cat=Skirts">Skirts</a>
+  <a href="shop.html?cat=Outerwear">Outerwear</a>
+  <a href="shop.html?cat=Accessories">Accessories</a>
+  <a href="shop.html?sale=1" style="color:var(--rose)">Sale</a>
+  <a href="wishlist.html">Wishlist</a>
+  <a href="account.html">Account</a>
+</div>
+<div class="search-dropdown" id="searchDropdown">
+  <div class="search-inner">
+    <input type="text" class="search-input" id="searchInput" placeholder="Search dresses, tops, accessories…"/>
+    <button class="btn-sm" onclick="doSearch()">Search</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Spring / Summer Collection 2026</p>
+    <h1 class="hero-title">Where Style<br/><em>Meets Grace</em></h1>
+    <p class="hero-subtitle">Curated fashion for the modern woman — effortless everyday wear to show-stopping statement pieces.</p>
+    <div class="hero-btns">
+      <a href="shop.html" class="btn-primary">Explore Collection</a>
+      <a href="shop.html?sale=1" class="btn-outline">View Sale</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <span class="hero-emoji">🌸</span>
+    <div class="hero-badge"><strong>50%</strong> off<br/>Sale Items</div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span>Free Shipping Over ₹2999</span><span class="dot">✦</span>
+    <span>New Spring Collection Live</span><span class="dot">✦</span>
+    <span>Easy 30-Day Returns</span><span class="dot">✦</span>
+    <span>Members Get 10% Off</span><span class="dot">✦</span>
+    <span>Sustainable Fashion</span><span class="dot">✦</span>
+    <span>Free Shipping Over ₹2999</span><span class="dot">✦</span>
+    <span>New Spring Collection Live</span><span class="dot">✦</span>
+    <span>Easy 30-Day Returns</span><span class="dot">✦</span>
+    <span>Members Get 10% Off</span><span class="dot">✦</span>
+    <span>Sustainable Fashion</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<div class="cats-grid">
+  <a href="shop.html?cat=Dresses" class="cat-tile" style="">
+    <div class="cat-tile-bg" style="background:linear-gradient(160deg,#e8d0c4,#c4a898);">👗</div>
+    <div class="cat-tile-info"><h3>Dresses</h3><span>42 Styles</span><a>Shop Now →</a></div>
+  </a>
+  <a href="shop.html?cat=Tops" class="cat-tile">
+    <div class="cat-tile-bg" style="background:linear-gradient(160deg,#d6dce8,#b0baca);">👚</div>
+    <div class="cat-tile-info"><h3>Tops & Blouses</h3><span>38 Styles</span><a>Shop Now →</a></div>
+  </a>
+  <a href="shop.html?cat=Skirts" class="cat-tile">
+    <div class="cat-tile-bg" style="background:linear-gradient(160deg,#dde8d6,#b8cab0);">🌿</div>
+    <div class="cat-tile-info"><h3>Skirts & Pants</h3><span>32 Styles</span><a>Shop Now →</a></div>
+  </a>
+  <a href="shop.html?cat=Outerwear" class="cat-tile">
+    <div class="cat-tile-bg" style="background:linear-gradient(160deg,#e8e0d4,#c8b8a4);">🧥</div>
+    <div class="cat-tile-info"><h3>Outerwear</h3><span>18 Styles</span><a>Shop Now →</a></div>
+  </a>
+</div>
+
+<!-- NEW ARRIVALS -->
+<section>
+  <div class="sec-head">
+    <p class="sec-eyebrow">Just Landed</p>
+    <h2 class="sec-title">New <em>Arrivals</em></h2>
+    <p class="sec-sub">The freshest pieces from our Spring 2026 collection, crafted for the modern woman.</p>
+  </div>
+  <div class="products-row" id="newArrivalsGrid"></div>
+  <div style="text-align:center;padding:0 0 5rem;">
+    <a href="shop.html?filter=new" class="btn-outline">View All New Arrivals</a>
+  </div>
+</section>
+
+<!-- SPLIT BANNER -->
+<section class="split-banner">
+  <div class="split-side split-dark">
+    <h2>End of Season<br/>Sale — Up to 50% Off</h2>
+    <p>Last chance to shop your favourites at unbeatable prices. Limited stock remaining — don't miss out.</p>
+    <a href="shop.html?sale=1" class="btn-rose" style="align-self:flex-start;">Shop the Sale</a>
+  </div>
+  <div class="split-side split-rose">🎉</div>
+</section>
+
+<!-- TRENDING -->
+<section>
+  <div class="sec-head">
+    <p class="sec-eyebrow">Editor's Pick</p>
+    <h2 class="sec-title">Trending <em>Now</em></h2>
+  </div>
+  <div class="trending-grid">
+    <a href="shop.html?cat=Dresses" class="trend-tile trend-big">
+      <div class="trend-tile-bg" style="background:linear-gradient(160deg,#c9b8a8,#8a7060);font-size:15rem;">💐</div>
+      <div class="trend-tile-label"><h4>Floral Dreams</h4><span>Dresses Collection</span></div>
+    </a>
+    <div class="trend-right">
+      <a href="shop.html?cat=Accessories" class="trend-tile">
+        <div class="trend-tile-bg" style="background:linear-gradient(160deg,#d4c8b8,#a89888);">✨</div>
+        <div class="trend-tile-label"><h4>Accessories</h4><span>New In</span></div>
+      </a>
+      <a href="shop.html?cat=Outerwear" class="trend-tile">
+        <div class="trend-tile-bg" style="background:linear-gradient(160deg,#b8c4cc,#8090a0);">🧥</div>
+        <div class="trend-tile-label"><h4>Outerwear</h4><span>Statement Pieces</span></div>
+      </a>
+      <a href="shop.html?cat=Tops" class="trend-tile">
+        <div class="trend-tile-bg" style="background:linear-gradient(160deg,#d4c0c0,#b09090);">🌺</div>
+        <div class="trend-tile-label"><h4>Blouses</h4><span>Effortless Style</span></div>
+      </a>
+      <a href="shop.html?cat=Skirts" class="trend-tile">
+        <div class="trend-tile-bg" style="background:linear-gradient(160deg,#c8d4c0,#9aaa8a);">🌿</div>
+        <div class="trend-tile-label"><h4>Skirts</h4><span>New Season</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="sec-head" style="padding-top:0;">
+    <p class="sec-eyebrow">What They Say</p>
+    <h2 class="sec-title">Customer <em>Love</em></h2>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <p class="testimonial-text">"The quality of the linen dress I ordered was beyond my expectations. It's beautifully cut and the fabric is so soft. Already planning my next order!"</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">🌸</div>
+        <div><p class="author-name">Priya S.</p><p class="author-loc">Mumbai</p></div>
+        <div class="stars" style="margin-left:auto;">★★★★★</div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <p class="testimonial-text">"LUMIÈRE has become my go-to for everything — from casual brunch looks to evening events. The styling is impeccable and delivery is so fast."</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">🌺</div>
+        <div><p class="author-name">Ananya R.</p><p class="author-loc">Bengaluru</p></div>
+        <div class="stars" style="margin-left:auto;">★★★★★</div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <p class="testimonial-text">"I received so many compliments wearing the silk slip dress! Returns were also easy when I needed a size change. 10/10 experience."</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">💐</div>
+        <div><p class="author-name">Kavya M.</p><p class="author-loc">Hyderabad</p></div>
+        <div class="stars" style="margin-left:auto;">★★★★★</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-sec">
+  <h2>Join the Inner Circle</h2>
+  <p>Early access. Exclusive offers. Style inspiration delivered weekly.</p>
+  <form class="newsletter-form" onsubmit="subscribeNL(event)">
+    <input type="email" class="newsletter-input" id="nlEmail" placeholder="Your email address" required/>
+    <button type="submit" class="newsletter-btn">Join</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <a class="footer-brand-logo">LUMIÈRE</a>
+      <p class="footer-desc">Celebrating the modern woman through curated fashion that empowers and endures beyond every trend. Ethically made, beautifully designed.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="shop.html?filter=new">New Arrivals</a></li>
+        <li><a href="shop.html?cat=Dresses">Dresses</a></li>
+        <li><a href="shop.html?cat=Tops">Tops & Blouses</a></li>
+        <li><a href="shop.html?cat=Skirts">Skirts</a></li>
+        <li><a href="shop.html?cat=Pants">Pants</a></li>
+        <li><a href="shop.html?cat=Outerwear">Outerwear</a></li>
+        <li><a href="shop.html?cat=Accessories">Accessories</a></li>
+        <li><a href="shop.html?sale=1" style="color:var(--rose)">Sale</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Help</h4>
+      <ul>
+        <li><a href="#">Size Guide</a></li>
+        <li><a href="#">Shipping & Returns</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Track Your Order</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Care Instructions</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About LUMIÈRE</a></li>
+        <li><a href="#">Sustainability</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 LUMIÈRE Fashion. All rights reserved.</p>
+    <div class="footer-socials">
+      <a href="#" title="Instagram">📸</a>
+      <a href="#" title="Pinterest">📌</a>
+      <a href="#" title="Facebook">👥</a>
+      <a href="#" title="YouTube">▶️</a>
+    </div>
+  </div>
+</footer>
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<aside class="cart-sidebar" id="cartSidebar">
+  <div class="cart-head">
+    <h3>Your Bag (<span id="cartItemCount">0</span>)</h3>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody"></div>
+  <div class="cart-foot" id="cartFoot" style="display:none">
+    <div class="cart-subtotal"><span>Subtotal</span><span class="val" id="cartSubtotal">₹0</span></div>
+    <p class="cart-shipping">Free shipping on orders over ₹2999</p>
+    <button class="btn-checkout" onclick="goCheckout()">Checkout</button>
+    <a href="cart.html"><button class="btn-view-cart">View Full Cart</button></a>
+  </div>
+</aside>
+
+<script src="shared.js"></script>
+<script>
+// Nav scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 30);
+});
+
+// Search
+document.getElementById('searchToggle').addEventListener('click', () => {
+  document.getElementById('searchDropdown').classList.toggle('open');
+  if (document.getElementById('searchDropdown').classList.contains('open'))
+    document.getElementById('searchInput').focus();
+});
+document.getElementById('searchInput').addEventListener('keypress', e => { if (e.key === 'Enter') doSearch(); });
+function doSearch() {
+  const q = document.getElementById('searchInput').value.trim();
+  if (q) window.location.href = 'shop.html?q=' + encodeURIComponent(q);
+}
+
+// Mobile menu
+function toggleMenu() {
+  document.getElementById('mobileNav').classList.toggle('open');
+}
+
+// Cart
+document.getElementById('cartToggle').addEventListener('click', openCart);
+function openCart() {
+  renderCart();
+  document.getElementById('cartSidebar').classList.add('open');
+  document.getElementById('cartOverlay').classList.add('open');
+}
+function closeCart() {
+  document.getElementById('cartSidebar').classList.remove('open');
+  document.getElementById('cartOverlay').classList.remove('open');
+}
+function renderCart() {
+  const cart = getCart();
+  const body = document.getElementById('cartBody');
+  const foot = document.getElementById('cartFoot');
+  document.getElementById('cartItemCount').textContent = cart.reduce((s,i)=>s+i.qty,0);
+  if (!cart.length) {
+    body.innerHTML = '<p class="cart-empty-msg">Your bag is empty.<br/><br/><a href="shop.html">Continue Shopping →</a></p>';
+    foot.style.display = 'none'; return;
+  }
+  const total = cart.reduce((s,i) => s + i.price * i.qty, 0);
+  body.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <div class="cart-item-thumb">${item.emoji}</div>
+      <div class="cart-item-info">
+        <p class="cart-item-brand">${item.brand}</p>
+        <p class="cart-item-name">${item.name}</p>
+        <p class="cart-item-size">Size: ${item.size}</p>
+        <div class="cart-qty-row">
+          <button class="qty-btn" onclick="cartQty('${item.key}',-1)">−</button>
+          <span class="qty-val">${item.qty}</span>
+          <button class="qty-btn" onclick="cartQty('${item.key}',1)">+</button>
+          <button class="cart-item-remove" onclick="cartRemove('${item.key}')">Remove</button>
+        </div>
+      </div>
+      <span class="cart-item-price">₹${(item.price*item.qty).toLocaleString()}</span>
+    </div>
+  `).join('');
+  document.getElementById('cartSubtotal').textContent = '₹' + total.toLocaleString();
+  foot.style.display = 'block';
+}
+function cartQty(key, d) {
+  const cart = getCart();
+  const item = cart.find(x => x.key === key);
+  if (!item) return;
+  item.qty += d;
+  if (item.qty <= 0) cart.splice(cart.indexOf(item), 1);
+  saveCart(cart); updateCartBadge(); renderCart();
+}
+function cartRemove(key) {
+  saveCart(getCart().filter(x => x.key !== key));
+  updateCartBadge(); renderCart();
+}
+function goCheckout() { window.location.href = 'checkout.html'; }
+
+// New arrivals grid
+function renderNewArrivals() {
+  const items = PRODUCTS.filter(p => p.tags.includes('new')).slice(0, 8);
+  const grid = document.getElementById('newArrivalsGrid');
+  grid.innerHTML = items.map(p => productCardHTML(p)).join('');
+}
+function productCardHTML(p) {
+  const w = getWishlist().includes(p.id);
+  const saleDiscount = p.oldPrice ? Math.round((1 - p.price/p.oldPrice)*100) : 0;
+  return `
+    <div class="product-card" onclick="window.location='product.html?id=${p.id}'">
+      <div class="product-img">
+        <span>${p.emoji}</span>
+        ${p.tags.includes('new') ? '<span class="product-badge badge-new">New</span>' : ''}
+        ${p.oldPrice ? `<span class="product-badge badge-sale" style="left:auto;right:.8rem;">-${saleDiscount}%</span>` : ''}
+        <button class="wish-btn" onclick="event.stopPropagation();doWish(${p.id},this)" data-id="${p.id}">${w?'❤️':'🤍'}</button>
+        <button class="quick-add" onclick="event.stopPropagation();doQuickAdd(${p.id})">Quick Add</button>
+      </div>
+      <div class="product-info">
+        <p class="product-brand">${p.brand}</p>
+        <p class="product-name">${p.name}</p>
+        <div class="product-prices">
+          <span class="price-cur">₹${p.price.toLocaleString()}</span>
+          ${p.oldPrice?`<span class="price-old">₹${p.oldPrice.toLocaleString()}</span>`:''}
+        </div>
+        <div class="product-colors">
+          ${p.colors.map(c=>`<span class="color-swatch" style="background:${c}"></span>`).join('')}
+        </div>
+        <div><span class="stars">${'★'.repeat(Math.round(p.rating))}</span><span class="stars-count">(${p.reviews})</span></div>
+      </div>
+    </div>
+  `;
+}
+function doWish(id, btn) {
+  const added = toggleWishlist(id);
+  btn.textContent = added ? '❤️' : '🤍';
+  showToast(added ? 'Added to wishlist ♥' : 'Removed from wishlist');
+}
+function doQuickAdd(id) {
+  addToCart(id);
+  renderCart();
+  openCart();
+  showToast('Added to bag ✓');
+}
+
+// Newsletter
+function subscribeNL(e) {
+  e.preventDefault();
+  showToast('Welcome to LUMIÈRE! ✓');
+  document.getElementById('nlEmail').value = '';
+}
+
+renderNewArrivals();
+updateCartBadge();
+</script>
+</body>
+</html>
